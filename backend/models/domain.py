@@ -9,7 +9,7 @@ def generate_uuid():
     return str(uuid.uuid4())
 
 class Order(Base):
-    __tablename__ = "orders"
+    __tablename__ = "sl_orders"
     
     id = Column(String, primary_key=True, default=generate_uuid)
     created_at = Column(DateTime(timezone=True), default=datetime.utcnow)
@@ -20,7 +20,7 @@ class Order(Base):
     packing_results = relationship("PackingResult", back_populates="order", cascade="all, delete-orphan")
 
 class BoxCatalog(Base):
-    __tablename__ = "box_catalog"
+    __tablename__ = "sl_box_catalog"
     
     id = Column(String, primary_key=True, default=generate_uuid)
     name = Column(String, unique=True, index=True)
@@ -33,10 +33,10 @@ class BoxCatalog(Base):
     packing_results = relationship("PackingResult", back_populates="box")
 
 class Product(Base):
-    __tablename__ = "products"
+    __tablename__ = "sl_products"
     
     id = Column(String, primary_key=True, default=generate_uuid)
-    order_id = Column(String, ForeignKey("orders.id"))
+    order_id = Column(String, ForeignKey("sl_orders.id"))
     name = Column(String, nullable=False)
     length = Column(Float, nullable=False)
     width = Column(Float, nullable=False)
@@ -47,11 +47,11 @@ class Product(Base):
     order = relationship("Order", back_populates="products")
 
 class PackingResult(Base):
-    __tablename__ = "packing_results"
+    __tablename__ = "sl_packing_results"
     
     id = Column(String, primary_key=True, default=generate_uuid)
-    order_id = Column(String, ForeignKey("orders.id"))
-    box_id = Column(String, ForeignKey("box_catalog.id"))
+    order_id = Column(String, ForeignKey("sl_orders.id"))
+    box_id = Column(String, ForeignKey("sl_box_catalog.id"))
     utilization_percent = Column(Float, nullable=False)
     chargeable_weight = Column(Float, nullable=False)
     shipping_cost = Column(Float, nullable=False)
