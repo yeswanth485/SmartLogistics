@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+pydantic
+sqlalchemy
+asyncpg
+greenlet
+alembic
+openai
+numpy
+python-multipart
+posthog
+python-dotenv
