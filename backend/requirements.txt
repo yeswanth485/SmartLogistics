@@ -2,8 +2,7 @@ fastapi
 uvicorn
 pydantic
 sqlalchemy
-asyncpg
-greenlet
+psycopg2-binary
 alembic
 openai
 numpy
