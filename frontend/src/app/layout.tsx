@@ -6,6 +6,8 @@ export const metadata: Metadata = {
   description: 'AI-powered packaging and cartonization engine',
 };
 
+import Sidebar from '@/components/Sidebar';
+
 export default function RootLayout({
   children,
 }: {
@@ -14,13 +16,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <main className="layout-container">
-          <header style={{ marginBottom: '2rem', textAlign: 'center' }} className="animate-fade-in">
-            <h1>Nexus Packing AI</h1>
-            <p>Smart Spatial & Cost Logistics Optimization</p>
-          </header>
-          {children}
-        </main>
+        <div className="layout-container">
+          <Sidebar />
+          <main className="main-content">
+            {children}
+          </main>
+        </div>
       </body>
     </html>
   );

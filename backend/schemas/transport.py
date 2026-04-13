@@ -31,3 +31,23 @@ class PackingResultResponse(BaseModel):
     shipping_cost: float
     ai_insights: Optional[str] = None
     placed_items: List[PlacedItem]
+
+class BoxCatalogInput(BaseModel):
+    name: str
+    length: float
+    width: float
+    height: float
+    max_weight: float
+    base_cost: float
+
+class BoxCatalogResponse(BoxCatalogInput):
+    id: str
+
+class TaskCreate(BaseModel):
+    title: str
+    description: Optional[str] = None
+    status: Optional[str] = "pending"
+
+class TaskResponse(TaskCreate):
+    id: str
+    created_at: Any

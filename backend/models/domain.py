@@ -59,3 +59,12 @@ class PackingResult(Base):
     
     order = relationship("Order", back_populates="packing_results")
     box = relationship("BoxCatalog", back_populates="packing_results")
+
+class Task(Base):
+    __tablename__ = "sl_tasks"
+    
+    id = Column(String, primary_key=True, default=generate_uuid)
+    title = Column(String, nullable=False)
+    description = Column(String, nullable=True)
+    status = Column(String, default="pending") # pending, in_progress, completed
+    created_at = Column(DateTime(timezone=True), default=datetime.utcnow)
