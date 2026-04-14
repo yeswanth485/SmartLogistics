@@ -28,8 +28,12 @@ class LogisticsPipeline:
         db_boxes = db.query(BoxCatalog).all()
         if not db_boxes:
             db_boxes = [
-                BoxCatalog(name="Medium Box", length=30, width=30, height=30, max_weight=15, base_cost=5.0),
-                BoxCatalog(name="Large Box", length=50, width=40, height=40, max_weight=30, base_cost=10.0),
+                BoxCatalog(name="Nano Box (XS)", length=15.0, width=10.0, height=5.0, max_weight=1.0, base_cost=0.40),
+                BoxCatalog(name="Small Box (S)", length=25.0, width=20.0, height=15.0, max_weight=5.0, base_cost=1.20),
+                BoxCatalog(name="Medium Box (M)", length=35.0, width=30.0, height=25.0, max_weight=12.0, base_cost=2.50),
+                BoxCatalog(name="Large Box (L)", length=55.0, width=45.0, height=35.0, max_weight=20.0, base_cost=5.50),
+                BoxCatalog(name="Extra Large (XL)", length=75.0, width=60.0, height=50.0, max_weight=35.0, base_cost=12.00),
+                BoxCatalog(name="Slim Folder", length=32.0, width=24.0, height=4.0, max_weight=2.0, base_cost=0.80),
             ]
             db.add_all(db_boxes)
             db.commit()
