@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Smart Logistics Optimization',
-  description: 'AI-powered packaging and cartonization engine',
+  title: 'Terybi AI - Logistics Intelligence',
+  description: 'AI-powered packaging and cartonization engine for precision manufacturing and ecommerce',
 };
 
 import Sidebar from '@/components/Sidebar';

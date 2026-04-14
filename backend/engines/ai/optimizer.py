@@ -6,11 +6,12 @@ from backend.engines.pack.bin_packer import Item, Box, BinPacker
 from backend.engines.cost.calculator import CostEngine
 
 class GeneticOptimizer:
-    def __init__(self, items: List[Item], template_boxes: List[Box], pop_size=30, generations=20):
+    def __init__(self, items: List[Item], template_boxes: List[Box], pop_size=50, generations=40):
         self.items = items
         self.template_boxes = template_boxes
         self.pop_size = pop_size
         self.generations = generations
+
 
     def fitness(self, permutation: List[Item], box: Box) -> float:
         packed_box = BinPacker.pack(permutation, box)

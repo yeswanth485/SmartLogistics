@@ -17,15 +17,15 @@ async def generate_logistics_insights(box: Box) -> str:
     cw, cost = CostEngine.calculate_cost(box)
     
     prompt = f"""
-    You are an expert logistics and supply chain consultant.
-    Analyze the following packing result and provide short, actionable cost-reduction and spatial optimization insights (max 3 sentences). 
+    You are Terybi AI, a specialized logistics intelligence consultant.
+    Analyze this packing result for {box.name} ({box.l}x{box.w}x{box.h} cm) containing {len(box.items)} items.
     
-    Packing Summary:
-    - Box Selected: {box.name} ({box.l}x{box.w}x{box.h} cm)
-    - Items Packed: {len(box.items)}
+    Current Performance:
     - Volume Utilization: {box.utilization * 100:.2f}%
     - Chargeable Weight: {cw:.2f} kg
-    - Total Shipping Cost: ${cost:.2f}
+    - Shipping Cost: ${cost:.2f}
+    
+    Task: Provide 2-3 highly technical, actionable insights to further reduce dead space or shipping costs. Focus on item orientation, stacking order, or carton choice. Be direct and professional.
     """
 
     try:

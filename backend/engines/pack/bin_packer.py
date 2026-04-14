@@ -95,47 +95,47 @@ class Box:
     def split_space(self, original_space: Space, item_dimensions) -> None:
         il, iw, ih = item_dimensions
         
-        # We generate up to 3 new spaces: Right, Top, Front
+        # We generate candidate new spaces: Right, Front, Top
+        # We use a heuristic that keeps spaces as large as possible
         new_spaces = []
         
-        # Space to the Right (along X)
+        # Space to the Right (full remaining width and height of the original space)
         if original_space.l - il > 0:
             new_spaces.append(Space(
-                original_space.x + il,
-                original_space.y,
-                original_space.z,
-                original_space.l - il,
-                iw, # or original_space.w (heuristics differ, we do simple division)
-                ih
+                original_space.x + il, original_space.y, original_space.z,
+                original_space.l - il, original_space.w, original_space.h
             ))
             
-        # Space to the Front (along Y)
+        # Space to the Front (full remaining length and height)
         if original_space.w - iw > 0:
             new_spaces.append(Space(
-                original_space.x,
-                original_space.y + iw,
-                original_space.z,
-                original_space.l,
-                original_space.w - iw,
-                ih
+                original_space.x, original_space.y + iw, original_space.z,
+                original_space.l, original_space.w - iw, original_space.h
             ))
             
-        # Space to the Top (along Z)
+        # Space to the Top (full remaining length and width)
         if original_space.h - ih > 0:
             new_spaces.append(Space(
-                original_space.x,
-                original_space.y,
-                original_space.z + ih,
-                original_space.l,
-                original_space.w,
-                original_space.h - ih
+                original_space.x, original_space.y, original_space.z + ih,
+                original_space.l, original_space.w, original_space.h - ih
             ))
 
         self.spaces.remove(original_space)
-        self.spaces.extend(new_spaces)
         
-        # In a full robust implementation, we would perform space merge & overlap resolution.
-        # This MVP splits correctly for simple FFD packing.
+        # Add new spaces but filter out any that are fully contained within others
+        # (Simplified redundancy check for better results)
+        for ns in new_spaces:
+            is_redundant = False
+            for existing in self.spaces:
+                if (ns.x >= existing.x and ns.y >= existing.y and ns.z >= existing.z and
+                    ns.x + ns.l <= existing.x + existing.l and
+                    ns.y + ns.w <= existing.y + existing.w and
+                    ns.z + ns.h <= existing.z + existing.h):
+                    is_redundant = True
+                    break
+            if not is_redundant:
+                self.spaces.append(ns)
+
 
 class BinPacker:
     @staticmethod

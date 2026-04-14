@@ -51,3 +51,18 @@ class TaskCreate(BaseModel):
 class TaskResponse(TaskCreate):
     id: str
     created_at: Any
+
+class DashboardStats(BaseModel):
+    total_packages: int
+    avg_utilization: float
+    total_savings: float
+    active_tasks: int
+
+class TrendPoint(BaseModel):
+    date: str
+    volume: float
+    savings: float
+
+class DashboardData(BaseModel):
+    stats: DashboardStats
+    trends: List[TrendPoint]
